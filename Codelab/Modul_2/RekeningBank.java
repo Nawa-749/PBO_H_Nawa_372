@@ -1,30 +1,25 @@
 public class RekeningBank {
-    // Atribut
     private String nomorRekening;
     private String namaPemilik;
     private double saldo;
 
-    // Constructor
     public RekeningBank(String nomorRekening, String namaPemilik, double saldo) {
         this.nomorRekening = nomorRekening;
         this.namaPemilik = namaPemilik;
         this.saldo = saldo;
     }
 
-    // Method tampilkanInfo
     public void tampilkanInfo() {
         System.out.println("Nomor Rekening: " + nomorRekening);
         System.out.println("Nama Pemilik: " + namaPemilik);
         System.out.println("Saldo: Rp" + saldo);
     }
 
-    // Method setorUang
     public void setorUang(double jumlah) {
         saldo += jumlah;
         System.out.println(namaPemilik + " menyetor Rp" + jumlah + ". Saldo sekarang: Rp" + saldo);
     }
 
-    // Method tarikUang
     public void tarikUang(double jumlah) {
         if (saldo >= jumlah) {
             saldo -= jumlah;
