@@ -4,6 +4,9 @@ public class LoginSystem {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
+        Admin admin = new Admin();
+        Mahasiswa mahasiswa = new Mahasiswa();
+
         System.out.println("Pilih jenis login:");
         System.out.println("1. Admin");
         System.out.println("2. Mahasiswa");
@@ -20,7 +23,7 @@ public class LoginSystem {
                 System.out.print("Masukkan password: ");
                 String adminPassword = scanner.nextLine();
 
-                if (adminUsername.equals("Admin010") && adminPassword.equals("Password010")) {
+                if (admin.login(adminUsername, adminPassword)) {
                     System.out.println("Login Admin berhasil!");
                 } else {
                     System.out.println("Login gagal! Username atau password salah.");
@@ -34,12 +37,11 @@ public class LoginSystem {
                 System.out.print("Masukkan NIM: ");
                 String mahasiswaNim = scanner.nextLine();
 
-                if (mahasiswaNama.equals("Nawa Istiqomah") && mahasiswaNim.equals("202410370110372")) {
+                if (mahasiswa.login(mahasiswaNama, mahasiswaNim)) {
                     System.out.println("Login Mahasiswa berhasil!");
-                    System.out.println("Nama: " + mahasiswaNama);
-                    System.out.println("NIM: " + mahasiswaNim);
+                    mahasiswa.displayInfo();
                 } else {
-                    System.out.println("Login gagal! Nama atau NIM salah.")
+                    System.out.println("Login gagal! Nama atau NIM salah.");
                 }
                 break;
 
