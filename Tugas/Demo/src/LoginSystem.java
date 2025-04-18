@@ -1,85 +1,50 @@
 import java.util.Scanner;
 
 public class LoginSystem {
-    // Nested Mahasiswa class
-    static class Mahasiswa {
-        private String nama;
-        private String nim;
-
-        public Mahasiswa() {
-            this.nama = "Nawa Istiqomah";
-            this.nim = "202410370110372";
-        }
-
-        public boolean login(String inputNama, String inputNim) {
-            return this.nama.equals(inputNama) && this.nim.equals(inputNim);
-        }
-
-        public void displayInfo() {
-            System.out.println("Nama: " + this.nama);
-            System.out.println("NIM: " + this.nim);
-        }
-    }
-
-    // Nested Admin class
-    static class Admin {
-        private String username;
-        private String password;
-
-        public Admin() {
-            this.username = "Admin010";
-            this.password = "Password010";
-        }
-
-        public boolean login(String inputUsername, String inputPassword) {
-            return this.username.equals(inputUsername) && this.password.equals(inputPassword);
-        }
-    }
-
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Admin admin = new Admin();
-        Mahasiswa mahasiswa = new Mahasiswa();
 
-        System.out.println("Pilih jenis login:");
-        System.out.println("1. Admin");
-        System.out.println("2. Mahasiswa");
-        System.out.print("Masukkan pilihan Anda: ");
+        Admin admin = new Admin("Nawa Istiqomah", "202410370110372", "admin", "password123");
+        Mahasiswa mahasiswa = new Mahasiswa("Nawa Istiqomah", "2024103701103721");
 
+        System.out.println("===== SISTEM LOGIN =====");
+        System.out.println("1. Login sebagai Admin");
+        System.out.println("2. Login sebagai Mahasiswa");
+        System.out.print("Pilih opsi login (1/2): ");
         int pilihan = scanner.nextInt();
         scanner.nextLine();
 
         switch (pilihan) {
             case 1:
-                System.out.print("Masukkan username: ");
-                String adminUsername = scanner.nextLine();
-                System.out.print("Masukkan password: ");
-                String adminPassword = scanner.nextLine();
+                System.out.println("\n=== LOGIN ADMIN ===");
+                System.out.print("Username: ");
+                String inputUsername = scanner.nextLine();
+                System.out.print("Password: ");
+                String inputPassword = scanner.nextLine();
 
-                if (admin.login(adminUsername, adminPassword)) {
-                    System.out.println("Login Admin berhasil!");
+                if (admin.login(inputUsername, inputPassword)) {
+                    admin.displayInfo();
                 } else {
-                    System.out.println("Login gagal! Username atau password salah.");
+                    System.out.println("Login Admin gagal. Username atau password salah!");
                 }
                 break;
 
             case 2:
-                System.out.print("Masukkan nama: ");
-                String mahasiswaNama = scanner.nextLine();
-                System.out.print("Masukkan NIM: ");
-                String mahasiswaNim = scanner.nextLine();
+                System.out.println("\n=== LOGIN MAHASISWA ===");
+                System.out.print("Nama: ");
+                String inputNama = scanner.nextLine();
+                System.out.print("NIM: ");
+                String inputNim = scanner.nextLine();
 
-                if (mahasiswa.login(mahasiswaNama, mahasiswaNim)) {
-                    System.out.println("Login Mahasiswa berhasil!");
+                if (mahasiswa.login(inputNama, inputNim)) {
                     mahasiswa.displayInfo();
                 } else {
-                    System.out.println("Login gagal! Nama atau NIM salah.");
+                    System.out.println("Login Mahasiswa gagal. Nama atau NIM salah!");
                 }
                 break;
 
             default:
-                System.out.println("Pilihan tidak valid.");
-                break;
+                System.out.println("Pilihan tidak valid!");
         }
 
         scanner.close();
