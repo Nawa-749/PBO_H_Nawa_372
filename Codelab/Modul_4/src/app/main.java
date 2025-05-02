@@ -1,5 +1,4 @@
 package app;
-import perpustakaan.*;
 
 public class main {
     public static void main(String[] args) {
