@@ -3,7 +3,11 @@ public class Admin extends User {
     private String password;
 
     public Admin(String nama, String nim, String username, String password) {
+<<<<<<< HEAD
         super(nama, nim);
+=======
+        super(nama, nim); // Call the constructor of the parent class
+>>>>>>> d34c4fda6f917d6c4f1604517c6c51b50ca85eb4
         this.username = username;
         this.password = password;
     }
@@ -32,6 +36,10 @@ public class Admin extends User {
             return false;
         }
     }
+<<<<<<< HEAD
+=======
+    // Override displayInfo method
+>>>>>>> d34c4fda6f917d6c4f1604517c6c51b50ca85eb4
     @Override
     public void displayInfo() {
         System.out.println("Login Admin Berhasil!");
