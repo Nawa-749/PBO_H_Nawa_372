@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class LoginSystem {
-    public static void main(String[] args) {
+    public static <Mahasiswa> void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
         Admin admin = new Admin("Nawa Istiqomah", "202410370110372", "admin", "password123");
