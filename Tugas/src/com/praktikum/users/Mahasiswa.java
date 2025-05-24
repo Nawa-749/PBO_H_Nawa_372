@@ -1,85 +1,120 @@
 package com.praktikum.users;
-
+import com.praktikum.main.LoginSystem;
+import com.praktikum.models.Item;
 import java.util.Scanner;
-import com.praktikum.actions.MahasiswaActions;
+import java.util.Iterator;
+import java.util.InputMismatchException;
 
-public class Mahasiswa extends User implements MahasiswaActions {
+public class Mahasiswa extends User {
     private String nim;
-    private String nama;
 
-    public Mahasiswa(String username, String password, String nim, String nama) {
-        super(username, password);
+    public Mahasiswa(String nama, String nim) {
+        super(nama);
         this.nim = nim;
-        this.nama = nama;
-    }
-
-    @Override
-    public boolean login(String inputUsername, String inputPassword) {
-        return this.username.equals(inputUsername) && this.password.equals(inputPassword);
-    }
-
-    @Override
-    public void displayAppMenu() {
-        Scanner scanner = new Scanner(System.in);
-        int choice;
-
-        do {
-            System.out.println("\n===== MAHASISWA MENU =====");
-            System.out.println("1. Laporkan Barang Temuan/Hilang");
-            System.out.println("2. Lihat Daftar Laporan");
-            System.out.println("0. Logout");
-            System.out.print("Pilihan: ");
-
-            choice = scanner.nextInt();
-            scanner.nextLine(); // Clear buffer
-
-            switch (choice) {
-                case 1:
-                    reportItem();
-                    break;
-                case 2:
-                    viewReportedItems();
-                    break;
-                case 0:
-                    System.out.println("Logout berhasil!");
-                    break;
-                default:
-                    System.out.println("Pilihan tidak valid. Silakan coba lagi.");
-            }
-        } while (choice != 0);
-    }
-
-    @Override
-    public void reportItem() {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("\n===== LAPOR BARANG =====");
-        System.out.print("Nama Barang: ");
-        String namaBarang = scanner.nextLine();
-
-        System.out.print("Deskripsi Barang: ");
-        String deskripsiBarang = scanner.nextLine();
-
-        System.out.print("Lokasi Terakhir/Ditemukan: ");
-        String lokasiBarang = scanner.nextLine();
-
-        System.out.println("\nLaporan berhasil disimpan!");
-        System.out.println("Barang: " + namaBarang);
-        System.out.println("Deskripsi: " + deskripsiBarang);
-        System.out.println("Lokasi: " + lokasiBarang);
-        System.out.println("Pelapor: " + nama + " (" + nim + ")");
-    }
-
-    @Override
-    public void viewReportedItems() {
-        System.out.println(">> Fitur Lihat Laporan Belum Tersedia <<");
     }
 
     public String getNim() {
         return nim;
     }
 
-    public String getNama() {
-        return nama;
+    public void setNim(String nim) {
+        this.nim = nim;
+    }
+
+    @Override
+    public boolean login() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Masukkan nama: ");
+        String inputNama = scanner.nextLine();
+        System.out.print("Masukkan NIM: ");
+        String inputNim = scanner.nextLine();
+
+        return this.nama.equals(inputNama) && this.nim.equals(inputNim);
+    }
+
+    @Override
+    public void displayMenu() {
+        Scanner scanner = new Scanner(System.in);
+        int pilihan = 0;
+
+        do {
+            System.out.println("\n=== MENU MAHASISWA ===");
+            System.out.println("1. Laporkan Barang Hilang/Temuan");
+            System.out.println("2. Lihat Laporan Barang");
+            System.out.println("0. Logout");
+            System.out.print("Pilih menu: ");
+
+            try {
+                pilihan = scanner.nextInt();
+                scanner.nextLine();
+
+                switch (pilihan) {
+                    case 1:
+                        reportItem();
+                        break;
+                    case 2:
+                        viewReportedItems();
+                        break;
+                    case 0:
+                        System.out.println("Berhasil logout!");
+                        break;
+                    default:
+                        System.out.println("Pilihan tidak valid!");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Input harus berupa angka!");
+                scanner.nextLine();
+                pilihan = -1;
+            }
+        } while (pilihan != 0);
+    }
+
+    public void reportItem() {
+        Scanner scanner = new Scanner(System.in);
+
+        try {
+            System.out.println("\n=== LAPORKAN BARANG ===");
+            System.out.print("Nama barang: ");
+            String itemName = scanner.nextLine();
+
+            System.out.print("Deskripsi barang: ");
+            String description = scanner.nextLine();
+
+            System.out.print("Lokasi ditemukan/hilang: ");
+            String location = scanner.nextLine();
+
+            Item newItem = new Item(itemName, description, location);
+            LoginSystem.reportedItems.add(newItem);
+
+            System.out.println("Laporan barang '" + itemName + "' berhasil disimpan!");
+
+        } catch (Exception e) {
+            System.out.println("Terjadi kesalahan saat menyimpan laporan!");
+        }
+    }
+
+    public void viewReportedItems() {
+        System.out.println("\n=== LAPORAN BARANG ===");
+
+        if (LoginSystem.reportedItems.isEmpty()) {
+            System.out.println("Belum ada laporan barang.");
+            return;
+        }
+
+        Iterator<Item> iterator = LoginSystem.reportedItems.iterator();
+        int index = 1;
+
+        System.out.println("Daftar barang yang dilaporkan:");
+        while (iterator.hasNext()) {
+            Item item = iterator.next();
+            if ("Reported".equals(item.getStatus())) {
+                System.out.println(index++ + ". " + item.toString());
+            }
+        }
+
+        if (index == 1) {
+            System.out.println("Semua barang sudah ditandai sebagai diambil.");
+        }
     }
 }
