@@ -1,4 +1,4 @@
-package com.praktikum.Models;
+package com.praktikum.models;
 
 public class Item {
     private String itemName;

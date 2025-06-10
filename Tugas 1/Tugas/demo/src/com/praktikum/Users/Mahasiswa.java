@@ -1,6 +1,6 @@
 package com.praktikum.Users;
 import com.praktikum.Main.LoginSystem;
-import com.praktikum.Models.*;
+import com.praktikum.models.*;
 import java.util.Scanner;
 import java.util.Iterator;
 import java.util.InputMismatchException;

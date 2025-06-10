@@ -1,8 +1,6 @@
 package com.praktikum.Main;
-
-import com.praktikum.Models.Item;
 import com.praktikum.Users.*;
-
+import com.praktikum.models.Item;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.InputMismatchException;
@@ -22,9 +20,9 @@ public class LoginSystem {
         userList.add(new Admin("Admin", "admin", "admin372"));
 
         // Tambah mahasiswa default
-        userList.add(new Mahasiswa("Nawa Istiqomah", "202410370110372"));
-        userList.add(new Mahasiswa("Alfina Nil Husna", "202410370110368"));
-        userList.add(new Mahasiswa("Dhea Rengganis Tri Wahyuni", "202410370110349"));
+        userList.add(new Mahasiswa("Vanza", "2024"));
+        userList.add(new Mahasiswa("Jane Smith", "202301002"));
+        userList.add(new Mahasiswa("Ahmad Rizki", "202301003"));
 
         // Tambah beberapa item laporan default untuk testing
         reportedItems.add(new Item("Laptop ASUS", "Laptop warna hitam, stiker UMM", "Gedung GKB Lt. 2"));
